@@ -1,28 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/custom.css"/>
-</head>
-<body>
-    <div class="container">
-        <div class="row pt-50">
-            <div class="col-md-12">
-            <h2>Ryan's Weblog</h2>
+---
+layout: default
+title: Home
+---
 
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 hidden-sm hidden-xs">
-                This is col 4
-            </div>
-            <div class="col-md-8 col-xs-12">
-                This is col 8
-            </div>
-        </div>
-    </div>
-<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
-</body>
-</html>
+<div class="posts">
+  {% for post in paginator.posts %}
+  <div class="post">
+    <h1 class="post-title">
+      <a href="{{ post.url }}">
+        {{ post.title }}
+      </a>
+    </h1>
+
+    <span class="post-date">{{ post.date | date_to_string }}</span>
+
+    {{ post.content }}
+  </div>
+  {% endfor %}
+</div>
+
+<div class="pagination">
+  {% if paginator.next_page %}
+    <a class="pagination-item older" href="/page{{paginator.next_page}}">Older</a>
+  {% else %}
+    <span class="pagination-item older">Older</span>
+  {% endif %}
+  {% if paginator.previous_page %}
+    {% if paginator.page == 2 %}
+      <a class="pagination-item newer" href="/">Newer</a>
+    {% else %}
+      <a class="pagination-item newer" href="/page{{paginator.previous_page}}">Newer</a>
+    {% endif %}
+  {% else %}
+    <span class="pagination-item newer">Newer</span>
+  {% endif %}
+</div>
