@@ -6,26 +6,26 @@ published: false
 ---
 
 
-There's been a lot of buzz lately around the idea that [everyone should learn to code](http://code.org/). Regardless of whether or not _everyone_ needs or should learn to code, there's no doubt about the fact that knowing how to program computers is an in demand skill. I'm going to assume that you've already made the decision that it would be beneficial for you to learn how to code, and are looking for next steps to get started.
+Ok, so you want to learn how to code. Good for you. Now, where do you start?
 
-## Putting Some Myths to Rest
+The first order of business is to pick which programming language you learn first. There's plenty of choices, and plenty of opinions about what the "best" first language is. The truth is that for the most part, you can accomplish the same thing(s) in Language A as you can in Language B. All programs have ways to read files, transform data, output files, etc. Certain languages are better for particular tasks, and two languages might have significantly different ways of accomplishing the same thing, but at the end of the day, most languages can accomplish general purpose programming tasks.
 
-There's a lot of fear, uncertainty, and doubt surrounding programming, and I think that it erects a false barrier to entry around learning to code. There seems to be some mythical notion that if you're not a math genius or you didn't start programming by the time you stopped needing diapers, there's no hope. That's a load of crap. Sure, it's easier to learn new things when you're young, but it's not like you only get one shot to learn things.
+If you have a mentor or teacher who knows a particular language well, and is willing to spend time teaching you or answering your questions, you should probably learn that language as your first language. If that's not the case, and you're trying to figure out which one to learn, then pick [Java](http://java.com) or [Python](http://python.org). If you can't decide between those two, pick Python. Read on for why.
 
-Before making the transition to become a software engineer, I was an infantry officer in the Army and had never written a line of code in my life. I explored [Visual Basic](http://en.wikipedia.org/wiki/Visual_Basic) growing up, but never got super excited about my on customized Windows dialogue boxes. I didn't try again until I was 26, and was able to pick it up just fine. Like learning anything, if you're willing to put in the effort, the results are attainable.
+## Decision Criteria
 
-
-## The Initial Goal
-
-Don't worry too much at first about where your programming journey is going to lead. You may find that it's just not fo you, or that you don't have too many opportunities to apply your new skills, or that you love it so much you can't believe people will pay you to do it. You don't really know until you try. Later on up the road, once you've made the decision about whether this is just something you dabbled with, do as a hobby, or want to make a career out of, you'll come to the proverbial fork in the road, but for now, just get started.
-
-## Choosing a Programming Language
-
-The first decision you have to make is which programming language to learn. There's no shortage of choices, and no shortage of opinions about which one is the right one to learn as a new language. I
 ### Cross Platform
 
-### General Purpose
+Your language should work across platforms. That is to say, it should work on Windows, Linux, and Mac (which is closely related to Linux). Most mainstream, popular languages like C, C++, Java, Python, and Ruby are all cross platform, for the most part. C and C++ are less portable, because they must be compiled specifically for the operating system they'll run on. Java and Python for the most part are easy to write in one environment and run somewhere else. Objective C, the language used for apps on Apple devices, or C#, Microsoft's object-oriented programming language, are less portable choices than Java or Python.
 
-## Where to Find Help
+### Multi Purpose
 
-## Building Things
+As I mentioned above, most languages can accomplish most tasks. But some languages are used in practice for a wider array of things than others. Objective C, for example, is used more or less exclusively for apps to run on Apple devices. Ruby is used mostly for web applications with its Rails framework. Javascript is still predominately used within browsers, despite the fact that [node.js](http://nodejs.org) has brough it back into the general-purpose fold. Functional programming languages like Haskell and OCaml are usually used in specialized circumstances like the financial industry or academia.  Contrast that with something like Java, where there are rich libraries for build websites, machine learning, a desktop graphical user interface toolkit, statistics, etc. If you're just starting out, and not sure what or why you want to learn to code, it's nice to have flexibility rather than animating webpages or making mobile apps.
+
+### Approachability
+
+Python takes the cake here. It's syntax is much less complicated than Java, and allows you to write programs almost conversationally.
+
+## Conclusion
+
+Like I said above, the best language is one where you have someone to help you learn. If that's not available, then go with either Python or Java. They're both popular
