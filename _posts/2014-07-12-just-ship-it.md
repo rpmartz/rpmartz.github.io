@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Just Ship It
+comments: true
 ---
 
 In 2012, I put up a Wordpress blog and made a half-hearted effort at a few posts. I started grad school shortly afterwards and the blog fell by the wayside. I tried to resurrect it at one point, and got so frustrated with Wordpress that I shut it down, assuring myself that I'd write my own blog engine and get my site back up with a less bloated framework and more awesomeness. We all know how those things usually work out.
