@@ -18,3 +18,4 @@ author:
 paginate:         5
 
 # Custom vars
+jquery_url:       http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js
