@@ -5,10 +5,10 @@ comments: true
 published: true
 ---
 
-## Theory vs. Practice
-
 >  Beware of bugs in the above code; I have only proved it correct, not tried it.
 > [Donald Knuth](http://cs.stanford.edu/~uno/)
+
+## Theory vs. Practice
 
 
 The debate about the right balance of theoretical instruction and practical experience in formal computer science education won't be settled anytime soon.
