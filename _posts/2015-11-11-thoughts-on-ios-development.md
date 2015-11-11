@@ -2,16 +2,16 @@
 layout: post
 title: Thoughts and Observations on iOS Development
 comments: true
-published: false
+published: true
 ---
 
-My first iOS app, [Amatracker](https://github.com/rpmartz/amatracker), is currently waiting for review in the app store. It's nothing fancy; just an app version of the paper workout trackers we use at [CrossFit Amatak](http://crossfitamatak.com). Hopefully I can add a link to it in the App Store soon, but in the mean time I thought it would be a good time to write down a few observations about the process. Bear in mind these are coming from the perspective of a developer who writes Java for his day job.
+My first iOS app, [Amatracker](https://github.com/rpmartz/amatracker), is currently in review in the app store. It's nothing fancy; just an app version of the paper workout trackers we use at [CrossFit Amatak](http://crossfitamatak.com). Hopefully I can add a link to it in the App Store soon, but in the mean time I thought it would be a good time to write down a few observations about the process. Bear in mind these are coming from the perspective of a developer who writes Java for his day job.
 
 ## Resources
 
 ### Bitfountain
 
-I wrote Amatracker using [Swift](). Most of what I needed to learn, I used [Bitfountain](http://bitfountain.io)'s iOS 8 course for. They have since stopped selling enrollment to that particular course, and moved to a subscription model, but they're still great courses. Fair warning, they aim to be accessible to new programmers, so they can sometimes be redundant or slow if you're an experienced programmer, but they're a great introduction to iOS development. The subscription model also gives you access to their iOS design courses, which is a nice bonus.
+I wrote Amatracker using Swift. Most of what I needed to learn, I used [Bitfountain](http://bitfountain.io)'s iOS 8 course for. They have since stopped selling enrollment to that particular course, and moved to a subscription model, but they're still great courses. Fair warning, they aim to be accessible to new programmers, so they can sometimes be redundant or slow if you're an experienced programmer, but they're a great introduction to iOS development. The subscription model also gives you access to their iOS design courses, which is a nice bonus.
 
 ### Hacking With Swift
 
