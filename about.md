@@ -5,7 +5,7 @@ title: About
 
 ## About me
 
-I'm a software developer currently living in Phnom Penh, Cambodia. I work as a full stack engineer at [Fundrise](https://fundrise.com). My interests include programming languages and security and cryptography.
+I'm a software developer in Washington, DC. I work as a full stack engineer at [Fundrise](https://fundrise.com). I'm interested in DevOps, microservices, and mobile development.
 
 
 ## Disclaimer
