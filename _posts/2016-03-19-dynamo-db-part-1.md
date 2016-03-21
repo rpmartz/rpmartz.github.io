@@ -2,7 +2,7 @@
 layout: post
 title: Introduction to Amazon's Dynamo DB
 comments: true
-published: false
+published: true
 ---
 
 Unless you've been living under a rock for the past 5 years, it's no big secret that NoSQL databases can be a good choice for a certain class of data storage solutions. In this series of blog posts, we'll take a look at Amazon Web Services's NoSQL database, DynamoDB.
@@ -15,13 +15,11 @@ The [AWS DynamoDB Product Page](https://aws.amazon.com/dynamodb/) states that
 
 Sounds awesome, doesn't it? That's because AWS is trying to sell it to you! Sarcasm aside, let's take a look at a few of the keywords in that description.
 
-* _fast_: DynamoDB is designed to be fast and responsive even over very large data sets. "Single digit millisecond latency at any scale" takes a little bit of work from you in terms of understanding the data model and architecting your application appropriately, but the smart folks at AWS have used their hard won knowledge running Amazon.com and solved a lot of hard problems like spreading your data over multiple machines and using SSDs to keep queries and writes to DynamoDB fast. This lets you start small and pay only for what you need without worrying about whether your database scales.
+* _fast_: DynamoDB is designed to be fast and responsive even over very large data sets. "Single digit millisecond latency at any scale" takes a little bit of work from you in terms of understanding the data model and architecting your application appropriately, but the smart folks at AWS have applied their hard won knowledge running Amazon.com and solved a lot of hard problems like spreading your data over multiple machines and using SSDs to keep queries and writes to DynamoDB fast. This lets you start small and pay only for what you need without worrying about whether your database can scale.
 
 * _fully managed cloud database_: Another way to put look at this is (a NoSQL) database-as-a-service. You focus on developing your application (and making sure you pay your AWS bill every month) and AWS takes care of the management, capacity provisioning, scaling, backups, etc. when it comes to the database. No servers to image or backup, no concerns about hardware failure, no worries about whether to scale up by buying bigger hardware or scale out by sharing nothing - AWS handles all that and you just pay the bill and focus on your application.
 
 * _flexible_: Anyone who's worked on applications backed by a relational database (RDBMS) knows that they're great. Relational data models and database engines are well understood and have endured the test of time in a way that perhaps no other technology has. But they're not without their costs, both in terms of ease of development and on scalability. Relational databases [have shown they can scale quite well](https://gigaom.com/2011/12/06/facebook-shares-some-secrets-on-making-mysql-scale/), but developers like the schema-less flexibility and its positive impact on development times that NoSQL offers. Specifically in DynamoDB's case, you are required to have a hash key but other than that there is no schema enforcement.
-
-* _supports both document and key-value store models_:
 
 ## Who should use DynamoDB?
 
@@ -43,4 +41,4 @@ Everything above is fine and dandy, but what sorts of problems is DynamoDB _not_
 
 ## Conclusion and future posts
 
-Hopefully you have a general overview of what DynamoDB is and some broad guidelines for what sorts of applications it can be good for. In Part II we'll take a look at some fundamental concepts developers need to understand to use DynamoDB effectively. 
+Hopefully you have a general overview of what DynamoDB is and some broad guidelines for what sorts of applications it can be good for. In Part II we'll take a look at some fundamental concepts developers need to understand to use DynamoDB effectively.
