@@ -5,6 +5,8 @@ comments: true
 published: true
 ---
 
+Booktracker setup
+
 ## Getting Help
 
 We'll get started building our application in just a second, but first a quick word for those following along with the series and working on it. This is not a comprehensive "how to" series that will hold your hand through every step. The format of the posts will generally be an overview of the important concepts followed by highlights of configuration and implementation. The full source code is [available on GitHub]().
