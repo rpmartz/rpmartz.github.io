@@ -71,7 +71,7 @@ Oh, and if you just so happen to love you some XML, are a new tool Luddite, or a
 
 Let's kick the tires and make sure that what Spring Initializr built for us actually works by running the test suite. In the root of the project, go ahead and run `./gradlew test`. It'll take a minute the first time because Gradle has to download all your dependencies, but when the tests pass we can be confident that our build is in a good state. You should see something like:
 
-<img src="/public/images/booktrackr/initial_test-terminal_output.png" alt="Passing Tests"/>
+![Passing Tests](https://s3.amazonaws.com/ryan.martz/blog/images/booktrackr/initial_test_terminal_output.png)
 
 ## Our First Commit
 
