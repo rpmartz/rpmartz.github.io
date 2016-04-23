@@ -2,7 +2,7 @@
 layout: post
 title: Fundamental Concepts Underlying DynamoDB
 comments: true
-published: true
+published: false
 ---
 
 This post, part II of the DynamoDB series, will talk about what you need to understand in order to use DynamoDB effectively. Like I mentioned in [Part I](http://ryanpmartz.com/dynamo-db-part-1), you have some work to do in developing your application in such a way that you are able to use DynamoDB effectively.
