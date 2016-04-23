@@ -5,7 +5,7 @@ comments: true
 published: true
 ---
 
-Booktracker setup
+In this post, we'll go ahead and set up Booktracker's build.
 
 ## Getting Help
 
