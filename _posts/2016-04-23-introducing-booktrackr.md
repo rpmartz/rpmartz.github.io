@@ -2,7 +2,7 @@
 layout: post
 title: Introducing Booktrackr
 comments: true
-published: false
+published: true
 ---
 
 I'm starting a new series that will chronicle building a modern Java application, called Booktrackr. Like it sounds, Booktrackr will be a way to keep track of books you've read along with notes on those books.
