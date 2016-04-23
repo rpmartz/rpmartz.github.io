@@ -2,7 +2,7 @@
 layout: post
 title: Booktrackr Part II Continuous Integration
 comments: true
-published: true
+published: false
 ---
 
 Let's talk about the how and why to use continuous integration, and set up Booktrackr to use it.
@@ -62,7 +62,7 @@ In this installment of the Booktrackr series we set up continuous integration.
 
 ### Part III Preview
 
-In part III 
+In part III...
 
 ### Resources
 
