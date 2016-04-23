@@ -9,7 +9,7 @@ In this post, we'll go ahead and set up Booktracker's build.
 
 ## Getting Help
 
-We'll get started building our application in just a second, but first a quick word for those following along with the series and working on it. This is not a comprehensive "how to" series that will hold your hand through every step. The format of the posts will generally be an overview of the important concepts followed by highlights of configuration and implementation. The full source code is [available on GitHub]().
+We'll get started building our application in just a second, but first a quick word for those following along with the series and working on it. This is not a comprehensive "how to" series that will hold your hand through every step. The format of the posts will generally be an overview of the important concepts followed by highlights of configuration and implementation. The full source code is [available on GitHub](https://github.com/rpmartz/booktrackr).
 
 If I gloss over something that doesn't make sense, try to do some Googling to figure it out yourself; most of the tools are open source and exhaustively documented. If you're still stuck, get in touch by leaving a comment, opening a Github issue, or sending me a note and I'll do what I can to get you back on track.
 
@@ -71,7 +71,7 @@ Oh, and if you just so happen to love you some XML, are a new tool Luddite, or a
 
 Let's kick the tires and make sure that what Spring Initializr built for us actually works by running the test suite. In the root of the project, go ahead and run `./gradlew test`. It'll take a minute the first time because Gradle has to download all your dependencies, but when the tests pass we can be confident that our build is in a good state. You should see something like:
 
-![Passing Tests](/public/images/booktrackr/initial_test-terminal_output.png)
+<img src="/public/images/booktrackr/initial_test-terminal_output.png" alt="Passing Tests"/>
 
 ## Our First Commit
 
