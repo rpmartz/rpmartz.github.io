@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Booktrackr Part I: Getting Set Up
+title: Booktrackr Part I\: Getting Set Up
 comments: true
 published: true
 ---
