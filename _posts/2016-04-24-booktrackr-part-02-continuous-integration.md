@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Booktrackr Part II Continuous Integration
+title: Booktrackr Part II - Continuous Integration
 comments: true
 published: true
 ---
@@ -63,7 +63,7 @@ In this installment of the Booktrackr series we set up continuous integration, s
 
 ### Part III Preview
 
-In part III we'll add our domain objects and database schema migration.
+In part III we'll set up Heroku and deploy our application for the first time. 
 
 ### Resources
 
