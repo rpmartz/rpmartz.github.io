@@ -2,7 +2,7 @@
 layout: post
 title: Booktrackr Part II Continuous Integration
 comments: true
-published: false
+published: true
 ---
 
 Let's talk about the how and why to use continuous integration, and set up Booktrackr to use it.
@@ -17,11 +17,11 @@ In its simplest incarnation, CI is really just about having a central server tha
 
 ### Assumptions, Ramifications, and Benefits
 
-Obviously, a CI server is really only as good as the tests it runs. To earn the benefits of CI, you have to invest the time in writing tests and writing the right kinds of tests.
+Obviously, a CI server is really only as good as the tests it runs. **To earn the benefits of CI, you have to invest the time in writing tests and writing the right kinds of tests.**
 
 A common argument against having automated integration tests or end-to-end/functional tests is that they take too long to run. There is a lot of merit to keeping your test suite fast in order to keep the feedback loop on changes quick, but offloading tests that take longer to run onto a CI server can help alleviate some of the costs of extensive testing. Developers can just run unit tests, which should be fast, locally, and allow the CI server to run tests that take longer to run. Modern CI platforms can also help with this by running builds or parts of builds in parallel.
 
-The cooler, more mature older brother of CI is continuous delivery, or CD. Continuous delivery, imprecisely speaking, means that every commit (or merged pull request) to `master` results in a new version of the software being deployed. Obviously CD requires a thorough and exhaustive pipeline of tests, in addition to other health and status checks of the recently-provisioned servers. Reasonable people might argue that there should always be a human in the loop as a final sanity check before releasing a new build to users. That's not an unreasonable check to implement, especially for teams new to CD. Even so, a good CD pipeline can do everything other than balance the new server into the load balancer, freeing up developers to focus on other things. But you'll never achieve continuous delivery until you get continuous integration right.
+The cooler, more mature older brother of CI is continuous delivery, or CD. Continuous delivery, loosely speaking, means that every commit (or merged pull request) to `master` results in a new version of the software being deployed. Obviously CD requires a thorough and exhaustive pipeline of tests, in addition to other health and status checks of the recently-provisioned servers. Reasonable people might argue that there should always be a human in the loop as a final sanity check before releasing a new build to users. That's not an unreasonable check to implement, especially for teams new to CD. Even so, a good CD pipeline can do everything other than balance the new server into the load balancer, freeing up developers to focus on other things. But you'll never achieve continuous delivery until you get continuous integration right.
 
 ## CI for Booktrackr
 
@@ -51,18 +51,19 @@ jdk:
   - oraclejdk8
 ```
 
+You need to add the bit about Oracle JDK 8 because for some reason the default Java version was 1.7. The Travis server will detect the `gradlew` file and can take it from there.
+
 ### What is Being Tested?
 
 An astute observer, or a contrarian, might ask what's really being tested right now. And it would be a good question, because the answer is, "not much, yet." The only test right now tests that the application can start, i.e. that the Spring context is configured correctly. While it's not terribly useful now, it will be when we start adding other Spring components.
 
-
 ## Wrap Up
 
-In this installment of the Booktrackr series we set up continuous integration.
+In this installment of the Booktrackr series we set up continuous integration, so every commit that we push to GitHub will be tested by our automated test suite.
 
 ### Part III Preview
 
-In part III...
+In part III we'll add our domain objects and database schema migration.
 
 ### Resources
 
