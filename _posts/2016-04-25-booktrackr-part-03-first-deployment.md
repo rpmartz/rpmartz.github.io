@@ -67,7 +67,7 @@ You can even test this configuration locally before you push it with the Heroku 
 
 Once you have your project working locally, go ahead and commit the new `Procfile` and push it to Heroku (`git push heroku master`). Make sure that if you've been making these changes in a separate branch, you merge them into `master` before you push to Heroku. You should see output similar to this in your terminal:
 
-![](img)
+![Heroku deployment](https://s3.amazonaws.com/ryan.martz/blog/images/booktrackr/successful_heroku_deployment.png)
 
 #### Interacting with the Deployed app
 
