@@ -5,23 +5,23 @@ comments: true
 published: false
 ---
 
-Time to create our first entities and introduce database schema migration.
+In this post we'll set up deployment to Heroku for Booktrackr.
 
 ## Deploy _Now_?!?
 
 Wait, deployment? Isn't it a little bit soon? The app doesn't even _do_ anything.
 
-Well, you're right that our app is a little bit light on functionality right now, but we want the ability to deploy quickly, frequently, constantly, and with confidence. As soon as a feature is complete and tested, we want the ability to release it so that we can see how users use it and iterate on it. We don't want to spend a long time building something, going through a painful integration process to merge it, then going through a painful process to deploy it. In line with [Part II about continuous integration](http://), we want to integrate often and deploy often, preferably with small changes. Sometimes multiple times per day.
+Well, you're right that our app is a little bit light on functionality right now, but we want the ability to deploy quickly, frequently, constantly, and with confidence. As soon as a feature is complete and tested, we want the ability to release it so that we can see how users use it and iterate on it. We don't want to spend a long time building something, going through a painful integration process to merge it, then going through a painful process to deploy it. In line with [Part II about continuous integration](http://ryanpmartz.com/booktrackr-part-02-continuous-integration), we want to integrate often and deploy often, preferably with small changes. Sometimes multiple times per day.
 
-Businesses and developers have recognized the value of this model, and modern cloud platforms like [Amazon Web Services](https://aws.amazon.com), [CloudFoundry](http://pivotal.io/platform), and [Heroku](https://heroku.com) have made it easy to do this.
+Businesses and developers have recognized the value of this model, and modern platform-as-a-service providers like [Amazon Web Services](https://aws.amazon.com), [CloudFoundry](http://pivotal.io/platform), and [Heroku](https://heroku.com) have made it easy to do this.
 
 So we're going to get our deployment process ironed out in the beginning, so that we can release features as soon as they're ready, and then update our release process as we need to.
 
 ## Using Current Version of Spring Boot
 
-I had not intended for this to happen, but it's illustrative of one of the benefits of getting deployment ironed out so early in the development process. In [Part I](http://) we picked a milestone release of Spring Boot (1.4.0 M2), which means it's not a released version that the Spring team has certified as being release ready. So far, we haven't had any problems with it, but in preparing this blog post I ran into some issues running the jar directly that I believe are related to the versions, so I rolled back to the latest release version of Spring Boot, 1.3.3, which solved the problem.
+I had not intended for this to happen, but it's illustrative of one of the benefits of getting deployment ironed out so early in the development process. In [Part I](http://ryanpmartz.com/booktrackr-getting-started) we picked a milestone release of Spring Boot (1.4.0 M2), which means it's not a released version that the Spring team has certified as being release ready. So far, we haven't had any problems with it, but in preparing this blog post I ran into some issues running the jar directly that I believe are related to the versions, so I rolled back to the latest release version of Spring Boot, 1.3.3, which solved the problem. (Running the application from IntelliJ and by using the Gradle Spring Boot plugin worked fine, but starting it from the command line using `java` wasn't working right)
 
-You can check out the diff for the commit to make this change [here](https://github.com/rpmartz/booktrackr/pull/2/commits/94f9a6d03a77d4bb1a99746989a33e44b9e27d48). It's really only a change to `build.gradle` and some annotations on the only test. But, because I set up deployment early in the project, this was an easy issue to fix because these features were not extensively used throughout the application. Had we waited until we were "done," we could have found ourself with a mess on our hands.
+You can check out the diff for the commit to make this change [here](https://github.com/rpmartz/booktrackr/pull/2/commits/94f9a6d03a77d4bb1a99746989a33e44b9e27d48). It's really only a change to `build.gradle` and some annotations on the only test. But, because we set up deployment now, this was an easy issue to fix because these features were not extensively used throughout the application. Had we waited until we were "done," we could have found ourself with a mess on our hands.
 
 ## Heroku
 
@@ -71,9 +71,9 @@ Once you have your project working locally, go ahead and commit the new `Procfil
 
 #### Interacting with the Deployed app
 
-Our app doesn't do much right now, so there's not much to interact with, but there's a couple of ways to interact with your app after you've deployed it to Heroku. You can type `heroku open` to open up the app's home page in your default browser, and you can use the command `heroku logs --tail` to view the logs from the application running on Heroku.
+Our app doesn't do much right now, so there's not much to interact with, but there are a couple of ways to interact with your app after you've deployed it to Heroku. You can type `heroku open` to open up the app's home page in your default browser, and you can use the command `heroku logs --tail` to view the logs from the application running on Heroku. We'll get more acquainted with Heroku later on in the series.
 
-### Deploying from Travis
+### Deploying from Travis or GitHub
 
 Now that we know what's going on under the covers when we deploy Heroku, i.e. that it uses our source code to build a binary executable and then starts it up using the `Procfile`.
 
@@ -85,9 +85,9 @@ In this installment of the Booktrackr series we set up our deployment pipeline a
 
 ### Part IV Preview
 
-In part IV we'll add our domain objects and database schema migration.
+In part IV we'll add our first domain objects and database schema migration.
 
 ### Resources
 
-* [Pull Request for the changes above](https://github.com/rpmartz/booktrackr/pull/2)
+* [Pull Request for the changes described in this post](https://github.com/rpmartz/booktrackr/pull/2)
 * [Heroku guide to deploying Spring Boot apps](https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku)
