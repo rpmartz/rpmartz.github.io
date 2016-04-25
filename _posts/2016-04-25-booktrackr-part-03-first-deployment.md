@@ -2,7 +2,7 @@
 layout: post
 title: Booktrackr Part III - The Initial Deployment
 comments: true
-published: false
+published: true
 ---
 
 In this post we'll set up deployment to Heroku for Booktrackr.
