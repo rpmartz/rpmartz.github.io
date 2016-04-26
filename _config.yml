@@ -9,11 +9,11 @@ permalink:        :title
 title:            Ryan Martz
 # tagline:          ''
 description:      ""
-url:              http://ryanpmartz.com
+url:              https://ryanpmartz.com
 
 author:
   name:           'Ryan Martz'
-  url:            http://ryanpmartz.com
+  url:            https://ryanpmartz.com
 
 paginate:         5
 
