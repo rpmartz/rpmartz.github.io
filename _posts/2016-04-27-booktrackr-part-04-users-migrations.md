@@ -4,7 +4,7 @@ title: Booktrackr Part IV - Our First Entity
 excerpt: The one in which we create our first entities and set up database migrations.
 date: 2016-04-29
 comments: true
-published: false
+published: true
 ---
 
 So far, we've [set up our project](https://ryanpmartz.com/booktrackr-getting-started) and added [continuous integration](https://https://ryanpmartz.com/booktrackr-part-02-continuous-integration) and [automated deployment to Heroku](https://ryanpmartz.com/booktrackr-part-03-first-deployment), which is swell, but Booktrackr still doesn't, you know, _actually do anything_. So we should probably fix that.
