@@ -88,7 +88,7 @@ If you tried to run the Gradle `build` or `test` tasks, you saw that our changes
 
 This is happening because we've put Postgres on the classpath. Spring Boot sees this, and looks for Postgres connection information in the properties files. It sees that we have the `spring.datasource.url` property declared, but if there's no value for `${BOOKTRACKR_DB_URL}`, an exception occurs.
 
-We can fix this temporarily by adding an empty `src/test/resources/application.yml` file, which overrides the `application.yml` in `src/main/resources`. That will cause Spring to use the embedded H2 database that's on the test classpath and keep our tests passing for the time being.
+We can fix this temporarily by adding an empty `src/test/resources/application.yml` file, which overrides the `application.yml` in `src/main/resources`. That will cause Spring to use the embedded H2 database that's on the test classpath for the integration tests and keep our tests passing for the time being.
 
 ### Our First Entity
 
@@ -122,8 +122,7 @@ All of the annotations are from the `javax.persistence` package. This tells Hibe
 
 We're going to keep our domain objects overly simple, which means that our schema will be extra flat. There will be wailing and gnashing of teeth from the database geeks out there that our schema is not in [Boyce-Codd normal form](https://en.wikipedia.org/wiki/Boyce%E2%80%93Codd_normal_form), and they're right, but that's ok. This is an application development exercise, not a database normalization exercise. Just like _real life_, we're going to exercise judgement about when we'll spend the time and effort to conform to "The One Right Way" and when we'll make simplifying assumptions so we can deliver something that works. Accordingly, rather than having a fully normalized schema, we're going to keep the `author` and `notes` on the `Book` object itself.
 
-By making these simplifications, we're buying ourselves ease of development. The cost is technical debt that might need to be paid back down the line. For example, pretend our
-application takes off and has hundreds of thousands of users...at that point maybe we do care that we are storing the multiple records for the same book.
+By making these simplifications, we're buying ourselves ease of development. The cost is technical debt that might need to be paid back down the line. For example, pretend our application takes off and has hundreds of thousands of users...at that point maybe we do care that we are storing the multiple records for the same book. But that's a bridge best crossed upon arrival.
 
 ### Managing the Schema
 
@@ -157,18 +156,19 @@ CREATE TABLE book
 
 Go ahead and put that in a file called `src/main/resources/db/migration/V1__add_book_entity.sql`. Flyway will see that, check the `schema_version` table in the database (or create one if it doesn't exist), and apply that migration if it doesn't already exist.
 
-One little trick I've picked up is to use two development databases or schemas until you know what SQL the different JPA annotations result in. So let's say you have two databases, `db1` and `db2`. You can point your application at `db1` with the property `spring.jap.hibernate.ddl-auto = create`, and then use command line or GUI database administration tools to look at the DDL. You can then copy and paste the entire DDL statements, or the portions that you need, into your migration file. You can then change the `spring.jap.hibernate.ddl-auto` proprety back to `validate` restart the application pointing at `db2`, and verify that the migration is correct.
+One little trick I've picked up is to use two development databases or schemas until you know what SQL the different JPA annotations result in. So let's say you have two databases, `db1` and `db2`. You can point your application at `db1` with the property `spring.jap.hibernate.ddl-auto = create`, and then use command line or GUI database administration tools to look at the DDL. You can then copy and paste the entire DDL statements, or the portions that you need, into your migration file. You can then change the `spring.jap.hibernate.ddl-auto` property back to `validate` restart the application pointing at `db2`, and verify that the migration is correct.
 
 ## Wrap Up
 
-In this installment of the Booktrackr series we set up our deployment pipeline and deployed the first version of our application to Heroku.
+In this installment of the Booktrackr series we migrated from the embedded H2 database to Postgres, added database schema migration, and created our first `Book` entity.
 
-### Part IV Preview
+### Part V Preview
 
-In part IV we'll add our first domain objects and database schema migration.
+In part V we'll update our Heroku configuration to use Postgres and we'll fix the fact that Travis still runs the integration test suite using H2.
 
 ### Resources
 
-* Spring Config
-* [Hipern](https://github.com/rpmartz/booktrackr/pull/2)
-* [Heroku guide to deploying Spring Boot apps](https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku)
+* [Pull Request for this post's changes](https://)
+* [Hibernate](http://hibernate.org)
+* [Spring Data JPA](http://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
+* [Flyway](https://flywaydb.org/)
