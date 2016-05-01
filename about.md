@@ -2,6 +2,9 @@
 layout: page
 title: About
 ---
+## Contact
+
+You can contact me at `ryan` @ this domain.com
 
 ## About me
 
