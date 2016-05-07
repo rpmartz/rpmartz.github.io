@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Booktrackr Part VII - Book Resource Endpoints
+title: Booktrackr Part VII - Documenting the API
 excerpt: Documenting the API endpoints
 date: 2016-05-07
 comments: true
@@ -9,7 +9,7 @@ published: true
 
 [Last time](https://http://ryanpmartz.com/booktrackr-part-06-book-endpoints), we implemented methods for creating, reading, updating, and deleting books. We've still got some things to do before the Booktrackr back end is complete, but most of the operations involved with book interactions are set up.
 
-But we need to document those endpoints to that the people who didn't write the application can use them. You'll come across a lot of people who claim to be agile and therefore don't do documentation, or assert that their code is their documentation. Both of those ideas are a bunch of malarkey. Yes, a working application is more important than documentation, but the best application in the world doesn't do anyone any good if only the developer and people with access to the source code can figure out how to use it.
+But we need to document those endpoints to that the people who didn't write the application can read them. You'll come across a lot of people who claim to be agile and therefore don't do documentation, or assert that their code is their documentation. Both of those ideas are a bunch of malarkey. Yes, a working application is more important than documentation, but the best application in the world doesn't do anyone any good if only the developer and people with access to the source code can figure out how to use it.
 
 So we're going to do things the right way and document our API, from the beginning. This will have the added benefit that we'll have an in-browser way to interact with our application even though we haven't built a UI for it yet.
 
