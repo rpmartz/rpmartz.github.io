@@ -2,9 +2,9 @@
 layout: post
 title: Booktrackr Part VI - Book Resource Endpoints
 excerpt: Adding REST endpoints for the BOOK entity
-date: 2016-05-02
+date: 2016-05-06
 comments: true
-published: false
+published: true
 ---
 
 We're finally at the point that we can start building out some functionality of our application. In this installment of the Booktrackr series, we'll create REST endpoints for the `Book` entity along with unit and integration tests.
@@ -19,7 +19,7 @@ In order to perform those CRUD operations, we'll need a way to access the databa
 
 ```java
 @Repository
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface BookRepository extends JpaRepository<Book, UUID> {
 }
 ```
 
@@ -31,7 +31,7 @@ I should also note that it allows you to add methods to the interface and can ge
 
 I like to put a service layer in between data access code and controllers. While not strictly necessary, I like it for two main reasons:
 
-* Performing database access from a controller requires you to open a database connection for the duration of the web request, when in reality the database connection only needs to be open for however long it takes to actually read or write the needed entities.
+* Performing database access from a controller requires you to open a database connection for the duration of the web request, when in reality the database connection only needs to be open for however long it takes to actually read or write the needed entities. There's no point in tying up database connections longer than they're needed for.
 * Performing domain access in a separate class allows encapsulation of the data fetching logic. For example, suppose that our app is popular enough that the amount of users puts some load on the database. A popular way to alleviate that is to cache the data in memory, and only fetch data from the database if the data is not in the cache. The service is a good place to put that caching logic to keep classes focused...controllers should receive and respond to web requests, and data access code should talk to the database, so the service is a nice middle layer to keep those two layers nice and clean.
 
 Here's what our `BookService` looks like:
@@ -115,7 +115,7 @@ Others have written about testing _ad nauseam_, so I don't want to get too deepl
 
 We have two options to unit test the controller. One is to treat it as a Plain Old Java Object (POJO), and inject mock implementations of `BookService`, its one dependency, and verify that it returns the list of `Book` objects that the `BookService` returns. The test would involve creating a new controller and testing it, e.g. `BookController controller = new BookController(bookService);`, and then invoking the `getAllBooks()` method.
 
-The upside of this approach is that it keeps the test simple, and fast. The downside is that that isn't how this method is actually invoked. In real life, this method will be invoked by Spring MVC in response to HTTP requests to the path `/books`. Our method is simple, but other methods will take JSON as input or may use validation rules invoked by Spring that we'd like to test.
+The upside of this approach is that it keeps the test simple, and fast. The downside is that that isn't how this method is actually invoked. In real life, this method will be invoked by Spring MVC in response to HTTP requests to the path `/books`. Our `getAllBooks()` method is simple right now, but other methods will take JSON as input or may use validation rules invoked by Spring that we'd like to test.
 
 Luckily, the good folks at Spring have provided some really nice and constantly-improving utilities for testing Spring web apps and Spring Book applications.
 
@@ -170,16 +170,71 @@ public class BookControllerTest {
 
 Note that you'll have to add the Jayway `json-test` library as a `testCompile` dependency in order to make assertions about the response JSON.
 
-You can see that we're still using a mock `BookService` by way of the Mockito testing library to keep the test reasonably fast. The test is still slower than a pure unit test, but faster than a test that requires a full-on Spring container to be stood up and requires real database access. In exchange for a slightly slower test, we get to actually send HTTP requests to our controller to make sure that the request mappings and request types are correct, and that Spring correctly serializes the response to JSON.
+You can see that we're still using a mock `BookService` by way of the Mockito testing library to keep the test reasonably fast. The test is still slower than a pure unit test, but faster than a test that requires a full-on Spring container to be stood up and requires real database access. In exchange for a slightly slower test, we get to actually send HTTP requests to our controller to make sure that the request mappings and request types are correct, and that Spring correctly serializes the response(s) to JSON.
 
 ### Integration Tests
 
 `BookControllerTest` is a kind of unit-test-on-steroids that's better than a unit test, but not quite a full integration test. Integration tests are more comprehensive than unit tests; they can test that all of your Spring annotations and configuration are doing what you expect, that your application can talk to the database, etc.
 
-There's a lot of testing value in integration testing, arguably more so than in unit testing since integration tests more closely approximate how the application will work in production. The drawback of integration tests is that they're slower than unit tests because the entire application, including the Spring context, has to start up, and they talk to the database, which adds additional latency. You can, however, delegate integration tests to your continuous integration server so that developers can just run unit tests. 
+There's a lot of value in integration testing, arguably more so than in unit testing since integration tests more closely approximate how the application will work in production. The drawback of integration tests is that they're slower than unit tests because the entire application, including the Spring context, has to start up, and they talk to the database, which adds additional latency.
 
+Because of this, I like to make sure that an application has integration tests and then let the CI server run those. Most of the time, developers can just run the unit tests on their local machine, which should run pretty quickly, and that keeps their feedback loop quick. But the CI server can run the integration tests on every commit, which also makes sure that the integration test suite is run often but does not slow down the development process.
 
+#### Setting Up
 
+We have a few changes we need to make to be able to run our integration tests in a different build phase than our unit tests. I followed Petri Kainulainen's [getting started with integration testing and Gradle](http://www.petrikainulainen.net/programming/gradle/getting-started-with-gradle-integration-testing/) guide with no issues. This allows you to run unit tests during Gradle's `test` phase and integration tests during Gradle's `integrationTest` phase of the build lifecycle, so you can run your unit tests locally and let Travis or some other CI server run your integration tests.
 
-- had to add jayway to testCompile classpath
-- difference between integration testing and unit testing for controllers
+```java
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = BooktrackrApplication.class)
+@WebAppConfiguration
+@Sql("/integration-test-data.sql")
+public class BookControllerIntTest {
+
+    @Autowired
+    private WebApplicationContext webApplicationContext;
+
+    private MockMvc mockMvc;
+
+    @Before
+    public void setUp() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .build();
+    }
+
+    @Test
+    public void testGetAllBooks() throws Exception {
+
+        mockMvc.perform(get("/books")).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$[0].title").value("1984"))
+                .andExpect(jsonPath("$[1].title").value("The Great Gatsby"))
+                .andDo(print());
+    }
+```
+
+You can see that this is very similar to the `BookControllerTest` unit test, except for some class level annotations and the use of the `webAppContextSetup()` method in the `setUp()` method.
+
+Although they look very close, the `BookControllerIntTest` sets up a full Spring application context and requires an actual Postgres database running to connect to, and insert the data found in `integration-test-data.sql`.
+
+### What and How to Test
+
+Here's another area that multiple people have earned PhDs and/or published series of books over, so a paragraph or two could never give it justice. Testing is important, and critical to having a quality test suite is having quality tests, meaning that there's good test coverage for the conditions that are important for your application to handle. _Good test coverage_ and _conditions that are important for an application to handle_ are subjective based on the kind of application. For some applications, such as medical devices or industrial controls, anything other than a negligible defect rate is unacceptable. For others, bugs really only result in annoyed users, which are not a good but nowhere near as serious as loss of life or property.
+
+That being said, I like to have a pretty comprehensive unit test suite that tests as many conditions as possible given the time available along with integration tests that check that everything else works. Integration tests are also a good place for bounds checks, such as if you want to test retrieving entities before a certain date and ensure that an entity wth a timestamp of 1 second before midnight on the cutoff date is appropriately included or excluded.
+
+### Updates to the `Book` Entity
+
+If you look at the pull request for this post, you'll see that I've changed the primary key type of the `Book` entity from `Long` to a `UUID`. Typically you'll see numeric primary keys, but using a `UUID` prevents an attacker from enumerating entities in URL paths. It can also help alleviate some challenges related to test data and using sequences.
+
+## Wrap Up
+
+In this installment of the Booktrackr series we implemented endpoints for the `Book` entities along with unit and integration tests for the controller. We updated our Gradle build to separate the unit tests and integration tests into different phases so that we could allow the CI server to run the integration test suite.
+
+Next time, we'll see how to use some tools to generate documentation of your REST endpoints.
+
+### Resources
+
+* [Part VI Pull Request](https://github.com/rpmartz/booktrackr/pull/5/files)
+* [Mockito](http://mockito.org/)
+* [Spring Boot Test Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html)
