@@ -74,6 +74,7 @@ That will allow us to create a `MetricsConfig` in our `config` pacakge and confi
 ```java
 @Configuration
 @EnableMetrics
+@Profile(value = {"dev", "prod"})
 public class MetricsConfig extends MetricsConfigurerAdapter {
 
     private static final Logger log = LoggerFactory.getLogger(MetricsConfig.class);
@@ -90,6 +91,8 @@ public class MetricsConfig extends MetricsConfigurerAdapter {
     }
 }
 ```
+
+Note that we added an `@Profile` annotation so that these beans do not get configured during integration tests.
 
 Here's what the output looks like:
 
