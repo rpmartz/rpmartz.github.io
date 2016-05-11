@@ -2,16 +2,16 @@
 layout: post
 title: Booktrackr Part IX - Adding a User Model
 excerpt: Adding a `User` domain object
-date: 2016-05-10
+date: 2016-05-11
 comments: true
-published: false
+published: true
 ---
 
-The "back end" of Booktrackr is almost built out. We've got a `Book` entities and corresponding CRUD REST endpoints with unit and integration tests for that. Now we need to add users so that users can save books and notes and retrieve them upon returning to the site.  
+The "back end" of Booktrackr is almost built out. We've got a `Book` entities and corresponding REST endpoints with unit and integration tests for that. Now we need to add users so that users can save books and notes and retrieve them upon returning to the site.  
 
 ## Extracting a `BaseEntity`
 
-In preparing this post I realized I had omitted some important fields from our `Book` entity. Hibernate and JPA give you the ability to add `created` and `modified` timestamps to an entity, and works a lot better if you provide a `version` field for each entity. You can read about how the `version` field is used for optimistic locking in the Hibernate docs, but suffice it to say we want these fields for all of our entities.
+In preparing this post I realized I had omitted some important fields from our `Book` entity. Hibernate and JPA give you the ability to add `created` and `modified` timestamps to an entity, and works a lot better if you provide a `version` field for each entity. You can read about how the `version` field is used for [optimistic locking in the Hibernate docs](http://docs.jboss.org/hibernate/orm/4.3/manual/en-US/html_single/#d5e2898), but suffice it to say we want these fields for all of our entities.
 
 Even though we want these on all of our entities, we don't want to make a bunch of different `@Version` fields, so we're going to extract these fields into a class called `BaseEntity` and then let our entities inherit from it:
 
@@ -112,7 +112,7 @@ public class User extends BaseEntity {
     // getters and setters
 ```
 
-Pretty straightforward class there. The `@Email` and `@NotBlank` annotations are for validation of the objects when creating them in the controllers, which we'll get into later on in the series.
+Pretty straightforward class there. The `@Email` and `@NotBlank` annotations are for validation of the objects when creating them in the controllers, which we'll get into later on in the series when we implement the operations to create users.
 
 This migration is a little bit simpler than the `book` migration above since it's a `CREATE TABLE` migration:
 
@@ -143,3 +143,5 @@ In this episode, we used inheritance to pull up some common fields on our domain
 Next time we'll implement the create account endpoints and tests.
 
 ### Resources
+
+* [Pull Request](https://github.com/rpmartz/booktrackr/pull/8/files)
