@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Booktrackr Part IX - Adding a User Model
-excerpt: Adding a `User` domain object
+excerpt: Adding a User domain object
 date: 2016-05-11
 comments: true
 published: true
