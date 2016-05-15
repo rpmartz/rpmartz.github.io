@@ -2,9 +2,9 @@
 layout: post
 title: Booktrackr Part XI - Security
 excerpt: Securing Booktrackr using Spring Security
-date: 2016-05-14
+date: 2016-05-15
 comments: true
-published: true
+published: false
 ---
 
 Booktrackr now has REST endpoints for `Book`s and an endpoint to create a new account. The only major task left for the back end is to secure it. We could have, and arguably should have, integrated security from the beginning, and if the API were bigger that probably would have been prudent so that we could update and test the security of new endpoints as we built them.
@@ -268,11 +268,16 @@ http.addFilterBefore(new JwtLoginFilter("/authenticate", jwtUtil, userDetailsSer
 http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
  ```
 
- ### Updating the Swagger Configuration
+That's all it takes to set up a token auth scheme. Make sure to check out the pull request for a few tweaks needed to make everything work properly.
+
+## Updating Book
 
 
+## Wrap Up
 
+Now Booktrackr has authentication and security. You should be sure to take a look at the pull request for this post, because there were a number of smaller changes not demonstrated above. Feel free to send me an email, leave a comment, or comment on the PR if you have any questions about what each change is doing.
 
+That should just about wrap up the API and back end portion of the application. There were almost certainly be changes required in conjunction with building out the web and mobile clients, but I'll highlight those as we go.
 
 ### Resources
 
