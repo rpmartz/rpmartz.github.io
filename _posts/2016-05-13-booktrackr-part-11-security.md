@@ -29,7 +29,7 @@ In a nutshell, JWT authentication works very similar to form authentication. In 
 
 Let's take a look at ours:
 
-```json
+```
 eyJhbGciOiJIUzUxMiJ9
 .eyJzdWIiOiJtYXJ0enJwQGdtYWlsLmNvbSIsInVzZXJfaWQiOiI3MTAwMzZmMy0xMjYyLTQ0MDEtODdmMC0wN
 DU2MWU2NDgwZTYiLCJyb2xlcyI6WyJST0xFX1VTRVIiXSwiZW1haWwiOiJtYXJ0enJwQGdtYWlsLmNvbSIsImV4cCI6MTQ2NDMyMTYwMH0
