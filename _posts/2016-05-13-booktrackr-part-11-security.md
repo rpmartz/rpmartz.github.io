@@ -2,9 +2,9 @@
 layout: post
 title: Booktrackr Part XI - Security
 excerpt: Securing Booktrackr using Spring Security
-date: 2016-05-15
+date: 2016-05-17
 comments: true
-published: false
+published: true
 ---
 
 Booktrackr now has REST endpoints for `Book`s and an endpoint to create a new account. The only major task left for the back end is to secure it. We could have, and arguably should have, integrated security from the beginning, and if the API were bigger that probably would have been prudent so that we could update and test the security of new endpoints as we built them.
@@ -29,15 +29,25 @@ In a nutshell, JWT authentication works very similar to form authentication. In 
 
 Let's take a look at ours:
 
-TODO SHOW JWT
+```json
+eyJhbGciOiJIUzUxMiJ9
+.eyJzdWIiOiJtYXJ0enJwQGdtYWlsLmNvbSIsInVzZXJfaWQiOiI3MTAwMzZmMy0xMjYyLTQ0MDEtODdmMC0wN
+DU2MWU2NDgwZTYiLCJyb2xlcyI6WyJST0xFX1VTRVIiXSwiZW1haWwiOiJtYXJ0enJwQGdtYWlsLmNvbSIsImV4cCI6MTQ2NDMyMTYwMH0
+.9pXp--zfHSWeijlu9tWgYEQWrfDLM2Md7r8zUhd0pQ9p1fpFqkFOH7SU-
+DkRb6ReRBvrdfOGiqFEzsxgrO0Idw
+```
+
+(Note: I put line breaks in that for rendering purposes but the actual value is a contiguous string)
 
 And here's what the decoded JSON looks like:
 
 ```json
-
+{"alg":"HS512"}
+{"sub":"email@ryanpmartz.com","user_id":"710036f3-1262-4401-87f0-04561e6480e6","roles":["ROLE_USER"],"email":"email@ryanpmartz.com","exp":1464321600}
+(signature)
 ```
 
-As you can see the JWT body above has the user ID, users's roles, and a signature to prove that the token is valid. The only way to get a signed token is to authenticate, so a server that receives a JWT whose signature passes can be confident that at some point the user authenticated and the token has not been modified.
+As you can see the JWT body above has the user ID, users's roles, the token's expiration date and a signature to prove that the token is valid. The only way to get a signed token is to authenticate, so a server that receives a JWT whose signature passes can be confident that at some point the user authenticated and the token has not been modified. Say a malicious user tried to escalate his or her privileges by adding `ROLE_ADMIN` in the `roles` array. That would not work because upon receiving the token, the server would check that the signature matches the contents and see that the token's contents did not match the signature and the token was therefore modified. 
 
 ## Implementing JWT Authentication
 
@@ -191,7 +201,7 @@ This is a pretty simple filter to implement by extending Spring's `GenericFilter
 
        chain.doFilter(req, response);
    }
- ```
+```
 
 ## Configuring Spring Security
 
@@ -240,8 +250,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> result = userService.getUserByEmail(username);
+        if (result.isPresent()) {
+            User u = result.get();
+            Hibernate.initialize(u.getRoles());
 
-        return result.orElse(null);
+            return u;
+        }
+
+        throw new UsernameNotFoundException("No user found for username: " + username);
+
     }
 }
 ```
@@ -266,11 +283,13 @@ The last step is to add the JWT and authentication filters we configured above t
 ```java
 http.addFilterBefore(new JwtLoginFilter("/authenticate", jwtUtil, userDetailsService, authenticationManager()), UsernamePasswordAuthenticationFilter.class);
 http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
- ```
+```
 
 That's all it takes to set up a token auth scheme. Make sure to check out the pull request for a few tweaks needed to make everything work properly.
 
 ## Updating Book
+
+The last thing we need to do is assoicate each `Book` record with a `User` so that users can keep track of their books and their notes. Most of this is pretty straightforward, but be sure to check the pull request for the changes if you're coding along, particularly to the `Book` entity as well as the `BookController` and `BookService`.  
 
 
 ## Wrap Up
@@ -281,4 +300,5 @@ That should just about wrap up the API and back end portion of the application. 
 
 ### Resources
 
-* [Pull Request](https://github.com/rpmartz/booktrackr/pull/9/files)
+* [Pull Request](https://github.com/rpmartz/booktrackr/pull/10)
+* [JSON Web Tokens](https://jwt.io) 
