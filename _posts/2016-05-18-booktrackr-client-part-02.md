@@ -148,5 +148,5 @@ The only other things we need to do are add a `HomeController` to serve our `ind
 
 ### Resources
 
-* [Pull Request](https://github.com/rpmartz/booktrackr/pull/12)
+* [Pull Request](https://github.com/rpmartz/booktrackr/pull/13)
 * [Angular Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md) 
