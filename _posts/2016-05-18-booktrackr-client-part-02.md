@@ -144,7 +144,7 @@ Make sure you look at the `gulpfile.js` on GitHub or the changes in the pull req
 
 ## Wrap Up
 
-The only other thing we need to do is update our `SecurityConfig` class to permit unauthenticated requests to our JS files, which you can look at in the PR. If you run the `wiredep` and `inject` tasks and then run the application, you should see the markup from `home/partials.html`. 
+The only other things we need to do are add a `HomeController` to serve our `index.html` and update our`SecurityConfig` class to permit unauthenticated requests to our JS files, both of which you can look at in the PR. If you run the `wiredep` and `inject` tasks and then run the application, you should see the markup from `home/partials.html`. 
 
 ### Resources
 
