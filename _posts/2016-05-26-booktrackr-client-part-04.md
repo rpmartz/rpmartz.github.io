@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Booktrackr Web Client Part IV - Implementing Client Side Authentication 
+title: Booktrackr Web Client Part IV - Implementing Client Side Authentication
 date: 2016-07-05
 comments: true
 published: true
